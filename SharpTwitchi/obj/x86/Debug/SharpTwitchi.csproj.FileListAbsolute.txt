@@ -1,0 +1,9 @@
+c:\users\geordie\documents\visual studio 2010\Projects\SharpTwitchi\SharpTwitchi\bin\Debug\SharpTwitchi.exe
+c:\users\geordie\documents\visual studio 2010\Projects\SharpTwitchi\SharpTwitchi\bin\Debug\SharpTwitchi.pdb
+c:\users\geordie\documents\visual studio 2010\Projects\SharpTwitchi\SharpTwitchi\obj\x86\Debug\SharpTwitchi.Properties.Resources.resources
+c:\users\geordie\documents\visual studio 2010\Projects\SharpTwitchi\SharpTwitchi\obj\x86\Debug\SharpTwitchi.csproj.GenerateResource.Cache
+c:\users\geordie\documents\visual studio 2010\Projects\SharpTwitchi\SharpTwitchi\obj\x86\Debug\SharpTwitchi.exe
+c:\users\geordie\documents\visual studio 2010\Projects\SharpTwitchi\SharpTwitchi\obj\x86\Debug\SharpTwitchi.pdb
+c:\users\geordie\documents\visual studio 2010\Projects\SharpTwitchi\SharpTwitchi\obj\x86\Debug\SharpTwitchi.MainWindow.resources
+c:\users\geordie\documents\visual studio 2010\Projects\SharpTwitchi\SharpTwitchi\obj\x86\Debug\SharpTwitchi.AddUserDialog.resources
+C:\Users\Geordie\Documents\Visual Studio 2010\Projects\SharpTwitchi\SharpTwitchi\obj\x86\Debug\SharpTwitchi.csprojResolveAssemblyReference.cache
