@@ -24,15 +24,25 @@ namespace SharpTwitchi {
             SyncFollowingList();
         }
 
-        public void AddUser(String username) {
-            if (username != "") {
-                followedChannels.Add(username);
-                UpdateFile();
+        public void AddUser(String enteredString) {
+            String[] usernames = enteredString.Split(' ');
+
+            foreach (String s in usernames) {
+                if (s != "") {
+                    followedChannels.Add(s);
+                }
             }
+
+            //if (enteredString != "") {
+            //    followedChannels.Add(enteredString);
+            //    UpdateFile();
+            //}
+
+            UpdateFile();
         }
 
         public void RemoveUsers(List<String> usernames) {
-            for (int i = followedChannels.Count()-1; i > 0; i--) {      // TODO: problem with this - won't remove last name because count-1 is 0 so loop doesn't start
+            for (int i = followedChannels.Count()-1; i >= 0; i--) {      // TODO: problem with this - won't remove last name because count-1 is 0 so loop doesn't start
                 if (usernames.Contains(followedChannels[i])){
                     followedChannels.RemoveAt(i);
                 }

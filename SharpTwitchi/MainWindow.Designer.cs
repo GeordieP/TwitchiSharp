@@ -141,8 +141,8 @@
             // 
             // TabWindow
             // 
-            this.TabWindow.Controls.Add(this.LiveTab);
             this.TabWindow.Controls.Add(this.ChannelsTab);
+            this.TabWindow.Controls.Add(this.LiveTab);
             this.TabWindow.Location = new System.Drawing.Point(12, 27);
             this.TabWindow.Margin = new System.Windows.Forms.Padding(0);
             this.TabWindow.Name = "TabWindow";
