@@ -25,7 +25,9 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.ControlToolstrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.RefreshBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.AutoRefreshBtn = new System.Windows.Forms.ToolStripButton();
             this.AutoRefreshStatus = new System.Windows.Forms.ToolStripLabel();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
@@ -36,15 +38,14 @@
             this.LiveTab = new System.Windows.Forms.TabPage();
             this.LiveDisplay = new System.Windows.Forms.WebBrowser();
             this.ChannelsTab = new System.Windows.Forms.TabPage();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.ChannelListBox = new System.Windows.Forms.ListBox();
             this.ChannelsToolStrip = new System.Windows.Forms.ToolStrip();
             this.AddChannelBtn = new System.Windows.Forms.ToolStripButton();
-            this.RemoveBtn = new System.Windows.Forms.ToolStripButton();
-            this.SelectAllBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.RemoveBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.SelectAllBtn = new System.Windows.Forms.ToolStripButton();
+            this.DeselectAllBtn = new System.Windows.Forms.ToolStripButton();
+            this.ChannelListBox = new System.Windows.Forms.ListBox();
             this.ControlToolstrip.SuspendLayout();
             this.MenuStrip.SuspendLayout();
             this.TabWindow.SuspendLayout();
@@ -71,6 +72,11 @@
             this.ControlToolstrip.TabIndex = 1;
             this.ControlToolstrip.Text = "toolStrip1";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
             // RefreshBtn
             // 
             this.RefreshBtn.Image = ((System.Drawing.Image)(resources.GetObject("RefreshBtn.Image")));
@@ -79,6 +85,11 @@
             this.RefreshBtn.Size = new System.Drawing.Size(66, 22);
             this.RefreshBtn.Text = "Refresh";
             this.RefreshBtn.Click += new System.EventHandler(this.RefreshButton_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // AutoRefreshBtn
             // 
@@ -125,7 +136,7 @@
             // HelpAbout
             // 
             this.HelpAbout.Name = "HelpAbout";
-            this.HelpAbout.Size = new System.Drawing.Size(152, 22);
+            this.HelpAbout.Size = new System.Drawing.Size(149, 22);
             this.HelpAbout.Text = "About Twitchi";
             // 
             // TabWindow
@@ -172,21 +183,6 @@
             this.ChannelsTab.Text = "Channels";
             this.ChannelsTab.UseVisualStyleBackColor = true;
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // ChannelListBox
-            // 
-            this.ChannelListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ChannelListBox.FormattingEnabled = true;
-            this.ChannelListBox.Location = new System.Drawing.Point(2, 28);
-            this.ChannelListBox.Margin = new System.Windows.Forms.Padding(0);
-            this.ChannelListBox.Name = "ChannelListBox";
-            this.ChannelListBox.Size = new System.Drawing.Size(555, 262);
-            this.ChannelListBox.TabIndex = 0;
-            // 
             // ChannelsToolStrip
             // 
             this.ChannelsToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
@@ -195,7 +191,8 @@
             this.toolStripSeparator4,
             this.RemoveBtn,
             this.toolStripSeparator5,
-            this.SelectAllBtn});
+            this.SelectAllBtn,
+            this.DeselectAllBtn});
             this.ChannelsToolStrip.Location = new System.Drawing.Point(3, 3);
             this.ChannelsToolStrip.Name = "ChannelsToolStrip";
             this.ChannelsToolStrip.Size = new System.Drawing.Size(554, 25);
@@ -209,6 +206,12 @@
             this.AddChannelBtn.Name = "AddChannelBtn";
             this.AddChannelBtn.Size = new System.Drawing.Size(96, 22);
             this.AddChannelBtn.Text = "Add Channel";
+            this.AddChannelBtn.Click += new System.EventHandler(this.AddChannelBtn_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // RemoveBtn
             // 
@@ -217,6 +220,12 @@
             this.RemoveBtn.Name = "RemoveBtn";
             this.RemoveBtn.Size = new System.Drawing.Size(117, 22);
             this.RemoveBtn.Text = "Remove Selected";
+            this.RemoveBtn.Click += new System.EventHandler(this.RemoveBtn_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
             // 
             // SelectAllBtn
             // 
@@ -225,21 +234,27 @@
             this.SelectAllBtn.Name = "SelectAllBtn";
             this.SelectAllBtn.Size = new System.Drawing.Size(75, 22);
             this.SelectAllBtn.Text = "Select All";
+            this.SelectAllBtn.Click += new System.EventHandler(this.SelectAllBtn_Click);
             // 
-            // toolStripSeparator4
+            // DeselectAllBtn
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.DeselectAllBtn.Image = ((System.Drawing.Image)(resources.GetObject("DeselectAllBtn.Image")));
+            this.DeselectAllBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DeselectAllBtn.Name = "DeselectAllBtn";
+            this.DeselectAllBtn.Size = new System.Drawing.Size(88, 22);
+            this.DeselectAllBtn.Text = "Deselect All";
+            this.DeselectAllBtn.Click += new System.EventHandler(this.DeselectAllBtn_Click);
             // 
-            // toolStripSeparator5
+            // ChannelListBox
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.ChannelListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ChannelListBox.FormattingEnabled = true;
+            this.ChannelListBox.Location = new System.Drawing.Point(2, 28);
+            this.ChannelListBox.Margin = new System.Windows.Forms.Padding(0);
+            this.ChannelListBox.Name = "ChannelListBox";
+            this.ChannelListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.ChannelListBox.Size = new System.Drawing.Size(555, 262);
+            this.ChannelListBox.TabIndex = 0;
             // 
             // MainWindow
             // 
@@ -293,6 +308,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton SelectAllBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton DeselectAllBtn;
     }
 }
 
