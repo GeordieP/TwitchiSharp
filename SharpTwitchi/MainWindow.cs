@@ -6,43 +6,30 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Microsoft.VisualBasic;
-using System.IO;
 
 namespace SharpTwitchi {
     public partial class MainWindow : Form {
         private const string styles = "<style type='text/css'>body { font-family: arial, sans-serif; font-size: 10pt }</style>";
         private const string htmlPre = "<html><head>" + styles + "</head><body>";
         private const string htmlPost = "</body></html>";
-        private String[] followedChannels;
+
+        private Notifier notifier;
 
         public MainWindow() {
             InitializeComponent();
+            notifier = new Notifier();
+            UpdateChannelList();
         }
 
         private void RefreshButton_Click(object sender, EventArgs e) {
             //string htmlContent = "<p><b><a href='http://twitch.tv/azorae'>Azorae</a></b> is live playing <b>Half-Life 2</b><br />Half Life 2 ss Race Scriptless vs isolitic</p> <p><b><a href='http://twitch.tv/sullyjhf'>SullyJHF</a></b> is live playing <b>Half-Life 2</b><br />HL2•Speedruns</p>";
             //LiveDisplay.DocumentText = htmlPre + htmlContent + htmlPost;
-            if (!File.Exists("following.txt")) File.Create("following.txt");
-            followedChannels = File.ReadAllLines("following.txt");
 
+            // Update channel list box every refresh
             UpdateChannelList();
         }
 
-
-        // this is to trigger the custom dialog
-        private void button1_Click(object sender, EventArgs e) {
-            using (AddUserDialog addDialog = new AddUserDialog()) {
-                if (addDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                    Console.WriteLine("Test: " + addDialog.GetUsername());
-                }
-            }
-        }
-
-        private void UpdateChannelList() {
-            ChannelListBox.Items.AddRange(followedChannels);
-        }
-
+        // set the html of the webbrowser
         private void toolStripButton2_Click(object sender, EventArgs e) {
             string htmlContent = "<p>Nobody you follow is currently streaming.</p>";
             LiveDisplay.DocumentText = htmlPre + htmlContent + htmlPost;
@@ -53,19 +40,37 @@ namespace SharpTwitchi {
                 ChannelListBox.SetSelected(i, true);
             }
         }
-
         private void DeselectAllBtn_Click(object sender, EventArgs e) {
             for (int i = 0; i < ChannelListBox.Items.Count; i++) {
                 ChannelListBox.SetSelected(i, false);
             }
         }
 
-        private void RemoveBtn_Click(object sender, EventArgs e) {
-
+        private void AddChannelBtn_Click(object sender, EventArgs e) {
+            using (AddUserDialog addDialog = new AddUserDialog()) {
+                if (addDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                    notifier.AddUser(addDialog.GetUsername());
+                    UpdateChannelList();
+                }
+            }
         }
 
-        private void AddChannelBtn_Click(object sender, EventArgs e) {
+        private void RemoveBtn_Click(object sender, EventArgs e) {
+            List<String> selectedNames = new List<String>();
+            foreach (Object selectedItem in ChannelListBox.SelectedItems) {
+                selectedNames.Add(selectedItem.ToString());
+            }
 
+            notifier.RemoveUsers(selectedNames);
+            UpdateChannelList();    // update channel list after names have been removed
+        }
+
+
+        // UI-Unrelated Methods
+        private void UpdateChannelList() {
+            ChannelListBox.Items.Clear();
+            notifier.SyncFollowingList();     // sync the following list with file
+            ChannelListBox.Items.AddRange(notifier.FollowedChannels.ToArray());     // Get the followed channels and toss them in the ListBox
         }
     }
 }

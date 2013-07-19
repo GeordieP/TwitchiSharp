@@ -14,7 +14,12 @@ namespace SharpTwitchi {
         }
 
         public string GetUsername() {
-            return UsernameTextbox.Text;
+            if (UsernameTextbox.Text != "" && !UsernameTextbox.Text.Contains(" ")) {
+                return UsernameTextbox.Text;
+            } else {
+                MessageBox.Show("Invalid username", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return "";
+            }
         }
     }
 }
