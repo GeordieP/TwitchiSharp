@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.ControlToolstrip = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -35,6 +36,8 @@
             this.HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.TabWindow = new System.Windows.Forms.TabControl();
+            this.LiveTab = new System.Windows.Forms.TabPage();
+            this.LiveDisplay = new System.Windows.Forms.WebBrowser();
             this.ChannelsTab = new System.Windows.Forms.TabPage();
             this.ChannelsToolStrip = new System.Windows.Forms.ToolStrip();
             this.AddChannelBtn = new System.Windows.Forms.ToolStripButton();
@@ -44,14 +47,13 @@
             this.SelectAllBtn = new System.Windows.Forms.ToolStripButton();
             this.DeselectAllBtn = new System.Windows.Forms.ToolStripButton();
             this.ChannelListBox = new System.Windows.Forms.ListBox();
-            this.LiveTab = new System.Windows.Forms.TabPage();
-            this.LiveDisplay = new System.Windows.Forms.WebBrowser();
+            this.AutoRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.ControlToolstrip.SuspendLayout();
             this.MenuStrip.SuspendLayout();
             this.TabWindow.SuspendLayout();
+            this.LiveTab.SuspendLayout();
             this.ChannelsTab.SuspendLayout();
             this.ChannelsToolStrip.SuspendLayout();
-            this.LiveTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // ControlToolstrip
@@ -98,15 +100,15 @@
             this.AutoRefreshBtn.Name = "AutoRefreshBtn";
             this.AutoRefreshBtn.Size = new System.Drawing.Size(95, 22);
             this.AutoRefreshBtn.Text = "Auto Refresh";
-            this.AutoRefreshBtn.Click += new System.EventHandler(this.toolStripButton2_Click);
+            this.AutoRefreshBtn.Click += new System.EventHandler(this.AutoRefreshBtn_Click);
             // 
             // AutoRefreshStatus
             // 
             this.AutoRefreshStatus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.AutoRefreshStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.AutoRefreshStatus.ForeColor = System.Drawing.Color.DimGray;
             this.AutoRefreshStatus.Name = "AutoRefreshStatus";
-            this.AutoRefreshStatus.Size = new System.Drawing.Size(49, 22);
-            this.AutoRefreshStatus.Text = "Enabled";
+            this.AutoRefreshStatus.Size = new System.Drawing.Size(39, 22);
+            this.AutoRefreshStatus.Text = "Status";
             // 
             // MenuStrip
             // 
@@ -149,6 +151,27 @@
             this.TabWindow.SelectedIndex = 0;
             this.TabWindow.Size = new System.Drawing.Size(568, 318);
             this.TabWindow.TabIndex = 3;
+            // 
+            // LiveTab
+            // 
+            this.LiveTab.Controls.Add(this.LiveDisplay);
+            this.LiveTab.Location = new System.Drawing.Point(4, 22);
+            this.LiveTab.Name = "LiveTab";
+            this.LiveTab.Padding = new System.Windows.Forms.Padding(3);
+            this.LiveTab.Size = new System.Drawing.Size(560, 292);
+            this.LiveTab.TabIndex = 0;
+            this.LiveTab.Text = "Live";
+            this.LiveTab.UseVisualStyleBackColor = true;
+            // 
+            // LiveDisplay
+            // 
+            this.LiveDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LiveDisplay.IsWebBrowserContextMenuEnabled = false;
+            this.LiveDisplay.Location = new System.Drawing.Point(3, 3);
+            this.LiveDisplay.MinimumSize = new System.Drawing.Size(20, 20);
+            this.LiveDisplay.Name = "LiveDisplay";
+            this.LiveDisplay.Size = new System.Drawing.Size(554, 286);
+            this.LiveDisplay.TabIndex = 0;
             // 
             // ChannelsTab
             // 
@@ -235,26 +258,11 @@
             this.ChannelListBox.Size = new System.Drawing.Size(555, 262);
             this.ChannelListBox.TabIndex = 0;
             // 
-            // LiveTab
+            // AutoRefreshTimer
             // 
-            this.LiveTab.Controls.Add(this.LiveDisplay);
-            this.LiveTab.Location = new System.Drawing.Point(4, 22);
-            this.LiveTab.Name = "LiveTab";
-            this.LiveTab.Padding = new System.Windows.Forms.Padding(3);
-            this.LiveTab.Size = new System.Drawing.Size(560, 292);
-            this.LiveTab.TabIndex = 0;
-            this.LiveTab.Text = "Live";
-            this.LiveTab.UseVisualStyleBackColor = true;
-            // 
-            // LiveDisplay
-            // 
-            this.LiveDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LiveDisplay.IsWebBrowserContextMenuEnabled = false;
-            this.LiveDisplay.Location = new System.Drawing.Point(3, 3);
-            this.LiveDisplay.MinimumSize = new System.Drawing.Size(20, 20);
-            this.LiveDisplay.Name = "LiveDisplay";
-            this.LiveDisplay.Size = new System.Drawing.Size(554, 286);
-            this.LiveDisplay.TabIndex = 0;
+            this.AutoRefreshTimer.Enabled = true;
+            this.AutoRefreshTimer.Interval = 180000;
+            this.AutoRefreshTimer.Tick += new System.EventHandler(this.AutoRefreshTimer_Tick);
             // 
             // MainWindow
             // 
@@ -275,11 +283,11 @@
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
             this.TabWindow.ResumeLayout(false);
+            this.LiveTab.ResumeLayout(false);
             this.ChannelsTab.ResumeLayout(false);
             this.ChannelsTab.PerformLayout();
             this.ChannelsToolStrip.ResumeLayout(false);
             this.ChannelsToolStrip.PerformLayout();
-            this.LiveTab.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -309,6 +317,7 @@
         private System.Windows.Forms.ToolStripButton SelectAllBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton DeselectAllBtn;
+        private System.Windows.Forms.Timer AutoRefreshTimer;
     }
 }
 

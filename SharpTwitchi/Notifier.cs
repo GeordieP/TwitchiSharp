@@ -73,10 +73,11 @@ namespace SharpTwitchi {
                 if (receivedText.Length > 2) {      // only parse the json if user is live
                     json = JArray.Parse(receivedText);
                     // title, meta_game, status = username, game, stream title
-                    returnText += String.Format("<p><b><a href='http://twitch.tv/{0}'>{0}</a></b> is live playing <b>{1}</b><br />{2}</p>", username, json[0]["channel"]["meta_game"], json[0]["channel"]["status"]);
+                    returnText += String.Format("<p><b><a href='javascript:window.open(\"http://www.twitch.tv/{0}/popout\",\"{0}\",\"menubar=no,width=854,height=480,toolbar=no\");window.focus();'>{0}</a></b> is live playing <b>{1}</b><br />{2}</p>", username, json[0]["channel"]["meta_game"], json[0]["channel"]["status"]);
                 }
             }
 
+            if (returnText == "") returnText = "<p>Nobody you follow is currently live.</p>";
             return returnText;
         }
 

@@ -19,23 +19,11 @@ namespace SharpTwitchi {
             InitializeComponent();
             notifier = new Notifier();
             UpdateChannelList();
+            UpdateAutoRefreshStatus();
         }
 
         private void RefreshButton_Click(object sender, EventArgs e) {
-            //string htmlContent = "<p><b><a href='http://twitch.tv/azorae'>Azorae</a></b> is live playing <b>Half-Life 2</b><br />Half Life 2 ss Race Scriptless vs isolitic</p> <p><b><a href='http://twitch.tv/sullyjhf'>SullyJHF</a></b> is live playing <b>Half-Life 2</b><br />HL2•Speedruns</p>";
-            //LiveDisplay.DocumentText = htmlPre + htmlContent + htmlPost;
-            // Update channel list box every refresh
-            //UpdateChannelList();
             LiveDisplay.DocumentText = htmlPre + notifier.TempName() + htmlPost;
-        }
-
-        // set the html of the webbrowser
-        private void toolStripButton2_Click(object sender, EventArgs e) {
-            string htmlContent = "<p>Nobody you follow is currently streaming.</p>";
-            LiveDisplay.DocumentText = htmlPre + htmlContent + htmlPost;
-
-            //notifier.GetJson();
-            //notifier.TempName();
         }
 
         private void SelectAllBtn_Click(object sender, EventArgs e) {
@@ -74,6 +62,25 @@ namespace SharpTwitchi {
             ChannelListBox.Items.Clear();
             notifier.SyncFollowingList();     // sync the following list with file
             ChannelListBox.Items.AddRange(notifier.FollowedChannels.ToArray());     // Get the followed channels and toss them in the ListBox
+        }
+
+        private void AutoRefreshTimer_Tick(object sender, EventArgs e) {
+            LiveDisplay.DocumentText = htmlPre + notifier.TempName() + htmlPost;
+        }
+
+        private void AutoRefreshBtn_Click(object sender, EventArgs e) {
+            AutoRefreshTimer.Enabled = !AutoRefreshTimer.Enabled;
+            UpdateAutoRefreshStatus();
+        }
+
+        private void UpdateAutoRefreshStatus() {
+            if (AutoRefreshTimer.Enabled) {
+                AutoRefreshStatus.ForeColor = Color.LimeGreen;
+                AutoRefreshStatus.Text = "Enabled";
+            } else {
+                AutoRefreshStatus.ForeColor = Color.Red;
+                AutoRefreshStatus.Text = "Disabled";
+            }
         }
     }
 }
