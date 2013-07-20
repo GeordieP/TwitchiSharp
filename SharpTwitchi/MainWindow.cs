@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace SharpTwitchi {
     public partial class MainWindow : Form {
-        private const string styles = "<style type='text/css'>body { font-family: arial, sans-serif; font-size: 10pt }</style>";
+        private const string styles = "<style type='text/css'>body { font-family: arial, sans-serif; font-size: 9pt }</style>";
         private const string htmlPre = "<html><head>" + styles + "</head><body>";
         private const string htmlPost = "</body></html>";
 
@@ -24,15 +24,18 @@ namespace SharpTwitchi {
         private void RefreshButton_Click(object sender, EventArgs e) {
             //string htmlContent = "<p><b><a href='http://twitch.tv/azorae'>Azorae</a></b> is live playing <b>Half-Life 2</b><br />Half Life 2 ss Race Scriptless vs isolitic</p> <p><b><a href='http://twitch.tv/sullyjhf'>SullyJHF</a></b> is live playing <b>Half-Life 2</b><br />HL2•Speedruns</p>";
             //LiveDisplay.DocumentText = htmlPre + htmlContent + htmlPost;
-
             // Update channel list box every refresh
-            UpdateChannelList();
+            //UpdateChannelList();
+            LiveDisplay.DocumentText = htmlPre + notifier.TempName() + htmlPost;
         }
 
         // set the html of the webbrowser
         private void toolStripButton2_Click(object sender, EventArgs e) {
             string htmlContent = "<p>Nobody you follow is currently streaming.</p>";
             LiveDisplay.DocumentText = htmlPre + htmlContent + htmlPost;
+
+            //notifier.GetJson();
+            //notifier.TempName();
         }
 
         private void SelectAllBtn_Click(object sender, EventArgs e) {

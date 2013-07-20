@@ -35,8 +35,6 @@
             this.HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.TabWindow = new System.Windows.Forms.TabControl();
-            this.LiveTab = new System.Windows.Forms.TabPage();
-            this.LiveDisplay = new System.Windows.Forms.WebBrowser();
             this.ChannelsTab = new System.Windows.Forms.TabPage();
             this.ChannelsToolStrip = new System.Windows.Forms.ToolStrip();
             this.AddChannelBtn = new System.Windows.Forms.ToolStripButton();
@@ -46,12 +44,14 @@
             this.SelectAllBtn = new System.Windows.Forms.ToolStripButton();
             this.DeselectAllBtn = new System.Windows.Forms.ToolStripButton();
             this.ChannelListBox = new System.Windows.Forms.ListBox();
+            this.LiveTab = new System.Windows.Forms.TabPage();
+            this.LiveDisplay = new System.Windows.Forms.WebBrowser();
             this.ControlToolstrip.SuspendLayout();
             this.MenuStrip.SuspendLayout();
             this.TabWindow.SuspendLayout();
-            this.LiveTab.SuspendLayout();
             this.ChannelsTab.SuspendLayout();
             this.ChannelsToolStrip.SuspendLayout();
+            this.LiveTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // ControlToolstrip
@@ -141,35 +141,14 @@
             // 
             // TabWindow
             // 
-            this.TabWindow.Controls.Add(this.ChannelsTab);
             this.TabWindow.Controls.Add(this.LiveTab);
+            this.TabWindow.Controls.Add(this.ChannelsTab);
             this.TabWindow.Location = new System.Drawing.Point(12, 27);
             this.TabWindow.Margin = new System.Windows.Forms.Padding(0);
             this.TabWindow.Name = "TabWindow";
             this.TabWindow.SelectedIndex = 0;
             this.TabWindow.Size = new System.Drawing.Size(568, 318);
             this.TabWindow.TabIndex = 3;
-            // 
-            // LiveTab
-            // 
-            this.LiveTab.Controls.Add(this.LiveDisplay);
-            this.LiveTab.Location = new System.Drawing.Point(4, 22);
-            this.LiveTab.Name = "LiveTab";
-            this.LiveTab.Padding = new System.Windows.Forms.Padding(3);
-            this.LiveTab.Size = new System.Drawing.Size(560, 292);
-            this.LiveTab.TabIndex = 0;
-            this.LiveTab.Text = "Live";
-            this.LiveTab.UseVisualStyleBackColor = true;
-            // 
-            // LiveDisplay
-            // 
-            this.LiveDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LiveDisplay.IsWebBrowserContextMenuEnabled = false;
-            this.LiveDisplay.Location = new System.Drawing.Point(3, 3);
-            this.LiveDisplay.MinimumSize = new System.Drawing.Size(20, 20);
-            this.LiveDisplay.Name = "LiveDisplay";
-            this.LiveDisplay.Size = new System.Drawing.Size(554, 286);
-            this.LiveDisplay.TabIndex = 0;
             // 
             // ChannelsTab
             // 
@@ -256,6 +235,27 @@
             this.ChannelListBox.Size = new System.Drawing.Size(555, 262);
             this.ChannelListBox.TabIndex = 0;
             // 
+            // LiveTab
+            // 
+            this.LiveTab.Controls.Add(this.LiveDisplay);
+            this.LiveTab.Location = new System.Drawing.Point(4, 22);
+            this.LiveTab.Name = "LiveTab";
+            this.LiveTab.Padding = new System.Windows.Forms.Padding(3);
+            this.LiveTab.Size = new System.Drawing.Size(560, 292);
+            this.LiveTab.TabIndex = 0;
+            this.LiveTab.Text = "Live";
+            this.LiveTab.UseVisualStyleBackColor = true;
+            // 
+            // LiveDisplay
+            // 
+            this.LiveDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LiveDisplay.IsWebBrowserContextMenuEnabled = false;
+            this.LiveDisplay.Location = new System.Drawing.Point(3, 3);
+            this.LiveDisplay.MinimumSize = new System.Drawing.Size(20, 20);
+            this.LiveDisplay.Name = "LiveDisplay";
+            this.LiveDisplay.Size = new System.Drawing.Size(554, 286);
+            this.LiveDisplay.TabIndex = 0;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -275,11 +275,11 @@
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
             this.TabWindow.ResumeLayout(false);
-            this.LiveTab.ResumeLayout(false);
             this.ChannelsTab.ResumeLayout(false);
             this.ChannelsTab.PerformLayout();
             this.ChannelsToolStrip.ResumeLayout(false);
             this.ChannelsToolStrip.PerformLayout();
+            this.LiveTab.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
