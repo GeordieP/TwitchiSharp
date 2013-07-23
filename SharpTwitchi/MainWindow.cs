@@ -19,11 +19,12 @@ namespace SharpTwitchi {
             InitializeComponent();
             notifier = new Notifier();
             UpdateChannelList();
-            UpdateAutoRefreshStatus();
+            UpdateAutoRefreshStatusLabel();
+            UpdateLiveDisplay();
         }
 
         private void RefreshButton_Click(object sender, EventArgs e) {
-            LiveDisplay.DocumentText = htmlPre + notifier.TempName() + htmlPost;
+            UpdateLiveDisplay();
         }
 
         private void SelectAllBtn_Click(object sender, EventArgs e) {
@@ -42,6 +43,7 @@ namespace SharpTwitchi {
                 if (addDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                     notifier.AddUser(addDialog.GetUsername());
                     UpdateChannelList();
+                    UpdateLiveDisplay();
                 }
             }
         }
@@ -53,9 +55,18 @@ namespace SharpTwitchi {
             }
 
             notifier.RemoveUsers(selectedNames);
-            UpdateChannelList();    // update channel list after names have been removed
+            UpdateChannelList();
+            UpdateLiveDisplay();
         }
 
+        private void AutoRefreshTimer_Tick(object sender, EventArgs e) {
+            UpdateLiveDisplay();
+        }
+
+        private void AutoRefreshBtn_Click(object sender, EventArgs e) {
+            AutoRefreshTimer.Enabled = !AutoRefreshTimer.Enabled;
+            UpdateAutoRefreshStatusLabel();
+        }
 
         // UI-Unrelated Methods
         private void UpdateChannelList() {
@@ -64,16 +75,7 @@ namespace SharpTwitchi {
             ChannelListBox.Items.AddRange(notifier.FollowedChannels.ToArray());     // Get the followed channels and toss them in the ListBox
         }
 
-        private void AutoRefreshTimer_Tick(object sender, EventArgs e) {
-            LiveDisplay.DocumentText = htmlPre + notifier.TempName() + htmlPost;
-        }
-
-        private void AutoRefreshBtn_Click(object sender, EventArgs e) {
-            AutoRefreshTimer.Enabled = !AutoRefreshTimer.Enabled;
-            UpdateAutoRefreshStatus();
-        }
-
-        private void UpdateAutoRefreshStatus() {
+        private void UpdateAutoRefreshStatusLabel() {
             if (AutoRefreshTimer.Enabled) {
                 AutoRefreshStatus.ForeColor = Color.LimeGreen;
                 AutoRefreshStatus.Text = "Enabled";
@@ -81,6 +83,10 @@ namespace SharpTwitchi {
                 AutoRefreshStatus.ForeColor = Color.Red;
                 AutoRefreshStatus.Text = "Disabled";
             }
+        }
+
+        private void UpdateLiveDisplay() {
+            LiveDisplay.DocumentText = htmlPre + notifier.BuildDisplayPage() + htmlPost;
         }
     }
 }

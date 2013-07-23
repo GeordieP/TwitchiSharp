@@ -272,10 +272,10 @@
             this.Controls.Add(this.TabWindow);
             this.Controls.Add(this.ControlToolstrip);
             this.Controls.Add(this.MenuStrip);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.MenuStrip;
-            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(600, 403);
             this.Name = "MainWindow";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Twitchi";
             this.ControlToolstrip.ResumeLayout(false);

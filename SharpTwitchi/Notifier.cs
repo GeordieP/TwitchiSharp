@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Windows.Forms;
 
 namespace SharpTwitchi {
     public class Notifier {
@@ -54,55 +55,44 @@ namespace SharpTwitchi {
             File.WriteAllLines("following.txt", FollowedChannels.ToArray());
         }
 
-        // need a method that checks each user status and returns a string of html to put in the browser
+        public List<string> currentlyLiveUsers = new List<string>();
 
+        Popup popup;
 
-        // first check if user is live before getting and parsing json
-
-        //string htmlContent = "<p><b><a href='http://twitch.tv/azorae'>Azorae</a></b> is live playing <b>Half-Life 2</b><br />Half Life 2 ss Race Scriptless vs isolitic</p> <p><b><a href='http://twitch.tv/sullyjhf'>SullyJHF</a></b> is live playing <b>Half-Life 2</b><br />HL2•Speedruns</p>";
-
-        public string TempName() {
+        public string BuildDisplayPage() {
             string baseUrl = "http://api.justin.tv/api/stream/list.json?channel=";
             string receivedText;
             WebClient wc = new WebClient();
             JArray json;
-            string returnText = "";
+            string liveDisplayText = "";
+            string popupDisplayText = "";
 
             foreach (String username in followedChannels) {
                 receivedText = wc.DownloadString(baseUrl + username);
                 if (receivedText.Length > 2) {      // only parse the json if user is live
                     json = JArray.Parse(receivedText);
-                    // title, meta_game, status = username, game, stream title
-                    returnText += String.Format("<p><b><a href='javascript:window.open(\"http://www.twitch.tv/{0}/popout\",\"{0}\",\"menubar=no,width=854,height=480,toolbar=no\");window.focus();'>{0}</a></b> is live playing <b>{1}</b><br />{2}</p>", username, json[0]["channel"]["meta_game"], json[0]["channel"]["status"]);
+
+                    liveDisplayText += String.Format("<p><b><a href='javascript:window.open(\"http://www.twitch.tv/{0}/popout\",\"{0}\",\"menubar=yes,width=854,height=480,toolbar=yes\");window.focus();'>{0}</a></b> is live playing <b>{1}</b><br />{2}</p>", username, json[0]["channel"]["meta_game"], json[0]["channel"]["status"]);
+
+                    if (!currentlyLiveUsers.Contains(username)) {       // If the current username isn't in the currently live list - meaning we haven't yet shown them on a popup window
+                        currentlyLiveUsers.Add(username);
+                        popupDisplayText += String.Format("<p><b><a href='javascript:window.open(\"http://www.twitch.tv/{0}/popout\",\"{0}\",\"menubar=no,width=854,height=480,toolbar=no\");window.focus();'>{0}</a></b> is live playing <b>{1}</b></p>", username, json[0]["channel"]["meta_game"]);
+                    }
+                } else if (currentlyLiveUsers.Contains(username)) {     // if username we're checking is offline, check if they're in currently live list
+                    // If current username is in currentlyLive, remove them because they're no longer live
+                    currentlyLiveUsers.Remove(username);
                 }
             }
 
-            if (returnText == "") returnText = "<p>Nobody you follow is currently live.</p>";
-            return returnText;
-        }
+            // Show popup window if someone is live (if text isn't empty)
+            if (popupDisplayText != "") {
+                popup = new Popup(popupDisplayText);
+                popup.Show();
+            }
 
-        public void GetJson() {
-            string url = "http://api.justin.tv/api/stream/list.json?channel=ludendi";
-            WebRequest wrGETURL;
-            wrGETURL = WebRequest.Create(url);
+            if (liveDisplayText == "") liveDisplayText = "<p>Nobody you follow is currently live.</p>";
 
-            Stream objStream;
-            objStream = wrGETURL.GetResponse().GetResponseStream();
-
-            StreamReader objReader = new StreamReader(objStream);
-            string test = objReader.ReadToEnd();
-
-            JArray a = JArray.Parse(test);
-
-            Console.WriteLine("Title: " + a[0]["channel"]["title"]);
-        }
-
-        public void TestingSomething() {
-            WebClient wc = new WebClient();
-            string temp = wc.DownloadString("http://api.justin.tv/api/stream/list.json?channel=ludendi");
-            Console.WriteLine("ESA: " + temp.Length);
-            temp = wc.DownloadString("http://api.justin.tv/api/stream/list.json?channel=enjoi0");
-            Console.WriteLine("Me: " + temp.Length);
+            return liveDisplayText;
         }
     }
 }

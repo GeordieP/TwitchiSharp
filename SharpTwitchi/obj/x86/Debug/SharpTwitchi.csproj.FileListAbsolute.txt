@@ -6,4 +6,5 @@ c:\users\geordie\documents\visual studio 2010\Projects\SharpTwitchi\SharpTwitchi
 c:\users\geordie\documents\visual studio 2010\Projects\SharpTwitchi\SharpTwitchi\obj\x86\Debug\SharpTwitchi.pdb
 c:\users\geordie\documents\visual studio 2010\Projects\SharpTwitchi\SharpTwitchi\obj\x86\Debug\SharpTwitchi.MainWindow.resources
 c:\users\geordie\documents\visual studio 2010\Projects\SharpTwitchi\SharpTwitchi\obj\x86\Debug\SharpTwitchi.AddUserDialog.resources
+C:\Users\Geordie\Documents\Visual Studio 2010\Projects\SharpTwitchi\SharpTwitchi\obj\x86\Debug\SharpTwitchi.Popup.resources
 C:\Users\Geordie\Documents\Visual Studio 2010\Projects\SharpTwitchi\SharpTwitchi\obj\x86\Debug\SharpTwitchi.csprojResolveAssemblyReference.cache
